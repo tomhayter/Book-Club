@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/> -->
+<link rel="stylesheet" href="{% static 'books/common.css' %}">
+<link rel="stylesheet" href="{% static 'books/book.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+<html lang="en-UK">
+<head>
+    <meta charset="utf-8" />
+    <title>Book Club</title>
+</head>
+<body>
+<div class="header">
+    <div class="search-header">
+        <a href="{% url 'search' %}">Search</a>
+    </div>
+    <p><a href="{% url 'home' %}">Book Club</a></p>
+</div>
+
+
+<div class="all">
+    <div class="info">
+        <div class="right-info">
+            <div class="cover">
+                <img src="{{book.cover}}">
+            </div>
+            <div>
+                <a href="{% url 'remove' %}?id={{book.googleID}}"><div class="button">Remove</div></a>
+            </div>
+        </div>
+        <div class="text-info">
+            <p><h3>{{book.title}}, <i>{{book.author}}</h3></i></p>
+            <p>Published: {{book.publishDate}}</p>
+            <p># of pages: {{book.pages}}</p>
+            <p><small>{{book.description | safe}}</small></p>
+        </div>
+    </div>
+
+    <div class="ratings">
+        <p>Ratings</p>
+        <div class="person-rating">
+            <a href="{% url 'edit' %}?id={{book.googleID}}"><div class="button">Edit</div></a>
+            <p><a href="{% url 'user' %}?name=Frances"><b>Frances:</b></a></p>
+            {% include frances_stars %}
+            <p>Date Read: {{frances_book.readDate}}</p>
+        </div>
+        <div class="person-rating">
+            <a href="{% url 'edit' %}?id={{book.googleID}}"><div class="button">Edit</div></a>
+            <p><a href="{% url 'user' %}?name=Tom"><b>Tom:</b></a></p>
+            {% include tom_stars %}
+            <p>Date Read: {{tom_book.readDate}}</p>
+        </div>
+        <p style="color: var(--primary)">a</p>
+    </div>
+
+</div>
+
+</body>
+</html>

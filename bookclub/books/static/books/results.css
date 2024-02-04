@@ -1,0 +1,59 @@
+.results {
+    width: 100%;
+}
+
+.result {
+    background-color: var(--secondary);
+    height: 260px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.result-img {
+    float: left;
+}
+
+.result-info {
+    float: left;
+    padding-left: 50px;
+}
+
+.result-add {
+    padding-right: 20px;
+    float: right;
+}
+
+.button {
+    background-color: var(--accent);
+    color: var(--background);
+    box-sizing: border-box;
+    float: right;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.added-text {
+    float: right;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/> -->
+<link rel="stylesheet" href="{% static 'books/common.css' %}">
+<link rel="stylesheet" href="{% static 'books/home.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+<html lang="en-UK">
+<head>
+    <meta charset="utf-8" />
+    <title>Book Club</title>
+</head>
+<body>
+<div class="header">
+    <div class="search-header">
+        <a href="{% url 'search' %}">Search</a>
+    </div>
+    <p><a href="{% url 'home' %}">Book Club</a></p>
+</div>
+
+
+<div class="all">
+    <div class="wide-shelf">
+        <p>Top Shelf</p>
+        {% for b in mixed_rankings %}
+            <div class="book">
+                <a href="{% url 'book' %}?id={{b.googleID}}"><img src="{{b.cover}}"></a>
+            </div>
+        {% endfor %}
+
+    </div>
+    <div class="users">
+        <div class="half-shelf">
+            <p><a href="{% url 'user' %}?name=Frances">Frances</a></p>
+            <div class="mini-shelf">
+                <p>Recent Reads</p>
+                {% for b in frances_recent %}
+                    <div class="book">
+                        <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="mini-shelf">
+                <p>Top Rated</p>
+                {% for b in frances_top_rated %}
+                    <div class="book">
+                        <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="half-shelf">
+            <p><a href="{% url 'user' %}?name=Tom">Tom</a></p>
+            <div class="mini-shelf">
+                <p>Recent Reads</p>
+                {% for b in tom_recent %}
+                    <div class="book">
+                        <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="mini-shelf">
+                <p>Top Rated</p>
+                {% for b in tom_top_rated %}
+                    <div class="book">
+                        <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

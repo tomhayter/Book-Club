@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/> -->
+<link rel="stylesheet" href="{% static 'books/common.css' %}">
+<link rel="stylesheet" href="{% static 'books/search.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+<html lang="en-UK">
+<head>
+    <meta charset="utf-8" />
+    <title>Book Club</title>
+</head>
+<body>
+<div class="header">
+    <div class="search-header">
+        <a href="{% url 'search' %}">Search</a>
+    </div>
+    <p><a href="{% url 'home' %}">Book Club</a></p>
+</div>
+
+
+<div class="all">
+    <div class="search-box">
+        <form action="{% url 'results' %}" method="get">
+            <button class="btn-search"><i class="fas fa-search"></i></button>
+            <input name="q" type="text" class="input-search" placeholder="Type to Search...">
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

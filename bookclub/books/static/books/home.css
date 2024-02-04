@@ -1,0 +1,43 @@
+.wide-shelf {
+    height: 300px;
+    color: var(--background);
+    background-color: var(--primary);
+    box-sizing: border-box;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.half-shelf {
+    width: calc(50% - 60px);
+    box-sizing: border-box;
+    float: left;
+    padding-left: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-right: 30px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: var(--dull-primary);
+}
+
+.mini-shelf {
+    height: 300px;
+    padding-left: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: var(--dull-primary);
+}
+
+.book {
+    float: left;
+    margin-right: 20px;
+}
