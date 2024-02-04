@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from datetime import date
 from .models import Book, BookRating, User
 from .forms import BookRatingForm
 import requests
