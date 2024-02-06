@@ -24,19 +24,23 @@
     </div>
     <div class="wide-shelf">
         <p>Your Shelf</p>
-        {% for b in books %}
-        <div class="book">
-            <a href="{% url 'book' %}?id={{b.googleID}}"><img src="{{b.cover}}"></a>
+        <div class="books">
+            {% for b in books %}
+            <div class="book">
+                <a href="{% url 'book' %}?id={{b.googleID}}"><img src="{{b.cover}}"></a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
     <div class="wide-shelf">
         <p>Read Next</p>
-        {% for b in to_read%}
-        <div class="book">
-            <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+        <div class="books">    
+            {% for b in to_read%}
+            <div class="book">
+                <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 

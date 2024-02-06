@@ -123,8 +123,6 @@ def get_book_from_google(id):
 def home(request):
     tom_books = BookRating.objects.filter(user__name="Tom")
     frances_books = BookRating.objects.filter(user__name="Frances")
-    tom_unread = [i for i in tom_books if i.readDate is None]
-    frances_unread = [i for i in frances_books if i.readDate is None]
     tom_read = [i for i in tom_books if i.readDate is not None]
     frances_read = [i for i in frances_books if i.readDate is not None]
     tom_recent = sorted(tom_read, key=lambda x: x.readDate, reverse=True)
@@ -144,13 +142,11 @@ def home(request):
     mixed_rankings = sorted(mixed_rankings, key=mixed_rankings.get)
 
     context = {
-        "tom_unread": tom_unread,
-        "frances_unread": frances_unread,
-        "tom_recent": tom_recent,
-        "frances_recent": frances_recent,
-        "tom_top_rated": tom_top_rated,
-        "frances_top_rated": frances_top_rated,
-        "mixed_rankings": mixed_rankings
+        "tom_recent": tom_recent[:3],
+        "frances_recent": frances_recent[:3],
+        "tom_top_rated": tom_top_rated[:3],
+        "frances_top_rated": frances_top_rated[:3],
+        "mixed_rankings": mixed_rankings[:9]
         }
     return render(request, "books/home.html", context)
 

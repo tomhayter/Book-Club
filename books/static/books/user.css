@@ -1,5 +1,5 @@
 .wide-shelf {
-    height: 300px;
+    min-height: 300px;
     background-color: var(--dull-primary);
     box-sizing: border-box;
     margin-left: 30px;
@@ -8,16 +8,24 @@
     padding-top: 5px;
     padding-left: 30px;
     padding-right: 30px;
+    padding-bottom: 10px;
     border-radius: 10px 10px 10px 10px;
+    margin-bottom: 40px;
+    overflow: hidden;
 }
 
 .title {
     text-align: center;
 }
 
-
+.books {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: masonry;  
+}
 
 .book {
-    float: left;
-    margin-right: 20px
+    /* float: left; */
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
