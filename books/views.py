@@ -130,35 +130,53 @@ def home(request):
     tom_top_rated = sorted(tom_read, key=lambda x: x.rating, reverse=True)
     frances_top_rated = sorted(frances_read, key=lambda x: x.rating, reverse=True)
 
+    class MixedBook:
+        def __init__(self, book, tom_stars, frances_stars, combined_rating):
+            self.book = book
+            self.tom_stars = tom_stars
+            self.frances_stars = frances_stars
+            self.combined_rating = combined_rating
+
     mixed_rankings = {}
     for b in tom_read:
-        mixed_rankings[b.book] = b.rating
+        mixed_rankings[b.book.googleID] = MixedBook(book=b.book, 
+                                           tom_stars=b.stars,
+                                           frances_stars="0.0_stars.html",
+                                           combined_rating=b.rating)
     
     for b in frances_read:
-        if b in mixed_rankings.keys():
-            mixed_rankings[b.book] += b.rating
+        if b.book.googleID in mixed_rankings.keys():
+            mixed_rankings[b.book.googleID].combined_rating += b.rating
+            mixed_rankings[b.book.googleID].frances_stars = b.stars
         else:
-            mixed_rankings[b.book] = b.rating
-    mixed_rankings = sorted(mixed_rankings, key=mixed_rankings.get)
+            mixed_rankings[b.book.googleID] = MixedBook(book=b.book,
+                                               tom_stars="0.0_stars.html",
+                                               frances_stars=b.stars,
+                                               combined_rating=b.rating)
+    mixed_ranking_books = sorted(mixed_rankings, key=lambda x: mixed_rankings[x].combined_rating, reverse=True)
+    detailed_mixed_rankings = [mixed_rankings[i] for i in mixed_ranking_books]
 
     context = {
         "tom_recent": tom_recent[:3],
         "frances_recent": frances_recent[:3],
         "tom_top_rated": tom_top_rated[:3],
         "frances_top_rated": frances_top_rated[:3],
-        "mixed_rankings": mixed_rankings[:9]
+        "mixed_rankings": detailed_mixed_rankings[:9]
         }
+    print(detailed_mixed_rankings)
     return render(request, "books/home.html", context)
 
 def user(request):
     user = request.GET.get("name")
     book_ratings = BookRating.objects.filter(user__name=user)
-    books = [i.book for i in book_ratings if i.readDate is not None]
+    books = [i for i in book_ratings if i.readDate is not None]
+    books = sorted(books, key=lambda x: x.readDate, reverse=True)
+    my_books = [i.book for i in books]
 
     other_user = get_other_user(user)
     other_user_book_ratings = BookRating.objects.filter(user__name=other_user)
 
-    to_read = [i for i in other_user_book_ratings if i.book not in books]
+    to_read = [i for i in other_user_book_ratings if i.book not in my_books]
     to_read = sorted(to_read, key=lambda x: x.rating, reverse=True)
 
     context = {
@@ -174,7 +192,7 @@ def search(request):
 
 def results(request):
     query = request.GET.get("q")
-    if query is "":
+    if query == "":
         return redirect("/books/search")
     results = get_books_from_google(query)
     context = {
@@ -186,25 +204,13 @@ def book(request):
     id = request.GET.get("id")
     book = Book.objects.get(googleID=id)
 
-
     tom_book = BookRating.objects.get(book__googleID=id, user__name="Tom")
     frances_book = BookRating.objects.get(book__googleID=id, user__name="Frances")
-    if tom_book.rating == None:
-        tom_stars = "0.0_stars.html"
-    else:
-        tom_stars = f"{tom_book.rating/2}_stars.html"
-
-    if frances_book.rating == None:
-        frances_stars = "0.0_stars.html"
-    else:
-        frances_stars = f"{frances_book.rating/2}_stars.html"
 
     context = {
         "book": book,
         "tom_book": tom_book,
-        "frances_book": frances_book,
-        "tom_stars": tom_stars,
-        "frances_stars": frances_stars
+        "frances_book": frances_book
     }
     return render(request, "books/book.html", context)
 
@@ -219,6 +225,7 @@ def add(request):
             rating = BookRating(book=b,
                                 user=u,
                                 rating=None,
+                                stars="0.0_stars.html",
                                 readDate=None)
             rating.save()
     return redirect(f"/books/book?id={id}")
@@ -245,6 +252,7 @@ def edit(request):
             elif "frances_rating" in request.POST:
                 bookRating = BookRating.objects.get(book__googleID=id, user__name="Frances")
             bookRating.rating = form.cleaned_data["rating"]
+            bookRating.stars = f"{bookRating.rating/2}_stars.html"
             bookRating.readDate = form.cleaned_data["readDate"]
             bookRating.save()
             return redirect(f"/books/book?id={id}")

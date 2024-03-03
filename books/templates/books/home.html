@@ -23,7 +23,13 @@
         <p>Top Shelf</p>
         {% for b in mixed_rankings %}
             <div class="book">
-                <a href="{% url 'book' %}?id={{b.googleID}}"><img src="{{b.cover}}"></a>
+                <div class="tooltip">
+                    <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+                    <span class="tooltip-text">
+                        <p>Tom: {% include b.tom_stars %}</p>
+                        <p>Frances: {% include b.frances_stars %}</p>
+                    </span>
+                </div>
             </div>
         {% endfor %}
 

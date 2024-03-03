@@ -27,7 +27,10 @@
         <div class="books">
             {% for b in books %}
             <div class="book">
-                <a href="{% url 'book' %}?id={{b.googleID}}"><img src="{{b.cover}}"></a>
+                <a href="{% url 'book' %}?id={{b.book.googleID}}"><img src="{{b.book.cover}}"></a>
+                <div class="book-stars">
+                    {% include b.stars %}
+                </div>
             </div>
             {% endfor %}
         </div>

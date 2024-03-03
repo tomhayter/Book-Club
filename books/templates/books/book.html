@@ -41,13 +41,13 @@
         <div class="person-rating">
             <a href="{% url 'edit' %}?id={{book.googleID}}"><div class="button">Edit</div></a>
             <p><a href="{% url 'user' %}?name=Frances"><b>Frances:</b></a></p>
-            {% include frances_stars %}
+            {% include frances_book.stars %}
             <p>Date Read: {{frances_book.readDate}}</p>
         </div>
         <div class="person-rating">
             <a href="{% url 'edit' %}?id={{book.googleID}}"><div class="button">Edit</div></a>
             <p><a href="{% url 'user' %}?name=Tom"><b>Tom:</b></a></p>
-            {% include tom_stars %}
+            {% include tom_book.stars %}
             <p>Date Read: {{tom_book.readDate}}</p>
         </div>
         <p style="color: var(--primary)">a</p>

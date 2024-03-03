@@ -23,6 +23,7 @@ class BookRating(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(null=True)
+    stars = models.CharField(max_length=50)
     readDate = models.DateField(null=True)
 
     def __str__(self):
