@@ -163,7 +163,6 @@ def home(request):
         "frances_top_rated": frances_top_rated[:3],
         "mixed_rankings": detailed_mixed_rankings[:9]
         }
-    print(detailed_mixed_rankings)
     return render(request, "books/home.html", context)
 
 def user(request):
